@@ -10,181 +10,38 @@
       font-family: 'EverysongFont';
       src: url('/cdn/font.ttf') format('truetype');
     }
-    * {
-      font-family: 'EverysongFont', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      text-decoration: none;
-      color: white;
-    }
-    body {
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    main {
-      flex: 1;
-      margin-left: 100px;
-      padding: 100px 20px 60px;
-    }
-
-    /* Top Nav */
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: #000;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-    }
-    .top-nav-left {
-      display: flex;
-      align-items: center;
-    }
-    .top-nav-left img {
-      width: 35px;
-      margin-right: 10px;
-    }
-    .top-nav-left span {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .top-nav button {
-      background: #ff1d64;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .top-nav button:hover {
-      transform: scale(1.05);
-    }
-
-    /* Side Nav */
-    .side-nav {
-      position: fixed;
-      top: 70px;
-      left: 0;
-      padding: 20px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      align-items: center;
-      width: 80px;
-    }
-    .side-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 14px;
-      transition: color 0.3s, transform 0.2s;
-    }
-    .side-nav a img {
-      width: 30px;
-      margin-bottom: 8px;
-    }
-    .side-nav a:hover {
-      color: #ff1d64;
-      transform: scale(1.05);
-    }
-
-    /* Content Panels */
-    .panel {
-      background: #000;
-      padding: 28px;
-      border-radius: 16px;
-      margin-bottom: 30px;
-      max-width: 720px;
-      box-shadow: 0 0 10px rgba(0,0,0,.6);
-    }
-    .panel h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-    .muted {
-      color: #bdbdbd;
-      margin-bottom: 20px;
-    }
-    .bigaccent {
-      color: #ff1d64;
-      font-weight: 700;
-    }
-
-    /* Form */
-    .form label {
-      display: block;
-      font-size: 14px;
-      margin: 10px 0 6px;
-    }
-    .form input[type="text"], 
-    .form input[type="url"] {
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #333;
-      background: #111;
-      color: white;
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    .form .radio {
-      display: flex;
-      gap: 20px;
-      margin: 8px 0 12px;
-    }
-    #existingLinkWrap {
-      display: none;
-      transition: all .3s ease;
-    }
-    .note {
-      font-size: 13px;
-      color: #999;
-      margin-top: -6px;
-      margin-bottom: 14px;
-    }
-    .btn {
-      background: #ff1d64;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: none;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-    }
-    .btn:disabled {
-      opacity: .5;
-      cursor: default;
-    }
-    .msg {
-      margin-top: 12px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #000;
-      margin-top: auto;
-    }
-    footer a {
-      margin: 0 15px;
-      font-size: 14px;
-      transition: color 0.3s;
-    }
-    footer a:hover {
-      color: #ff1d64;
-    }
+    * { font-family: 'EverysongFont', sans-serif; margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; color: white; }
+    body { background: #111; color: #fff; display: flex; flex-direction: column; min-height: 100vh; }
+    main { flex: 1; margin-left: 100px; padding: 100px 20px 60px; }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; position: fixed; top: 0; width: 100%; z-index: 1000; }
+    .top-nav-left { display: flex; align-items: center; }
+    .top-nav-left img { width: 35px; margin-right: 10px; }
+    .top-nav-left span { font-size: 20px; font-weight: bold; }
+    .top-nav button { background: #ff1d64; border: none; padding: 10px 20px; border-radius: 12px; font-size: 14px; cursor: pointer; transition: transform 0.2s ease; }
+    .top-nav button:hover { transform: scale(1.05); }
+    .side-nav { position: fixed; top: 70px; left: 0; padding: 20px 10px; display: flex; flex-direction: column; gap: 30px; align-items: center; width: 80px; }
+    .side-nav a { display: flex; flex-direction: column; align-items: center; font-size: 14px; transition: color 0.3s, transform 0.2s; }
+    .side-nav a img { width: 30px; margin-bottom: 8px; }
+    .side-nav a:hover { color: #ff1d64; transform: scale(1.05); }
+    .panel { background: #000; padding: 28px; border-radius: 16px; margin-bottom: 30px; max-width: 720px; box-shadow: 0 6px 18px rgba(0,0,0,.6); }
+    .panel h1 { font-size: 32px; margin-bottom: 8px; }
+    .muted { color: #bdbdbd; margin-bottom: 16px; }
+    .bigaccent { color: #ff1d64; font-weight: 700; }
+    .form { background: #111; padding: 18px; border-radius: 12px; }
+    label { display: block; font-size: 14px; margin: 10px 0 6px; }
+    input[type="text"], input[type="url"] { padding: 12px; border-radius: 10px; border: 1px solid #222; background: #0d0d0d; color: white; width: 100%; margin-bottom: 10px; }
+    .radio { display: flex; gap: 20px; margin: 8px 0 12px; align-items: center; }
+    input[type="radio"] { accent-color: #ff1d64; width:18px; height:18px; }
+    #existingLinkWrap { display: none; transition: all .25s ease; margin-top:8px; }
+    .note { font-size:13px;color:#999;margin-top:6px;margin-bottom:10px }
+    .btn { background: #ff1d64; padding: 12px 18px; border-radius: 10px; border: none; color: white; cursor: pointer; transition: transform 0.15s ease; }
+    .btn:hover { transform: scale(1.04); }
+    .btn:disabled { opacity:.5; cursor: default; }
+    .msg { margin-top:12px; font-size:14px; font-weight:600; }
+    footer { text-align: center; padding: 20px; background: #000; margin-top: auto; }
+    footer a { margin: 0 15px; font-size: 14px; color: #fff; transition: color .2s; }
+    footer a:hover { color: #ff1d64; }
+    @media (max-width: 880px) { main { margin-left: 24px; padding: 120px 16px 80px; } .side-nav { display: none; } }
   </style>
 </head>
 <body>
@@ -227,8 +84,10 @@
         <input id="coverUrl" type="url" placeholder="https://..." />
         <div class="note">Only Square 1000x1000+ Images Will Be Accepted</div>
 
-        <button id="submitBtn" class="btn">Submit</button>
-        <div id="formMsg" class="msg"></div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <button id="submitBtn" class="btn">Submit</button>
+          <div id="formMsg" class="msg" aria-live="polite"></div>
+        </div>
       </div>
     </div>
   </main>
@@ -242,47 +101,65 @@
     <a href="/distribute">Distribution</a>
   </footer>
 
-  <script src="/js/artists_data.js"></script>
+  <!-- Include your data and backend logic -->
   <script src="/js/songs_data.js"></script>
+  <script src="/js/artists_data.js"></script>
   <script src="/js/backend.js"></script>
+
+  <!-- Local total streams computation -->
   <script>
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // footer links
-      document.getElementById('supportLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
-      document.getElementById('removeLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
+    document.addEventListener("DOMContentLoaded", () => {
+      // Footer alerts
+      document.getElementById('supportLink').addEventListener('click', e => { e.preventDefault(); alert('Please Contact support@everysong.github.io'); });
+      document.getElementById('removeLink').addEventListener('click', e => { e.preventDefault(); alert('Please Contact support@everysong.github.io'); });
 
-      // show total streams
-      document.getElementById('totalCount').textContent = backend.formatNumber( backend.getTotalStreams() );
+      // Compute total streams using your backend.js calculateStreams function
+      const counterEl = document.getElementById("totalCount");
+      if(counterEl && typeof calculateStreams === "function" && Array.isArray(songs)){
+        let total = 0;
+        for(const song of songs){
+          total += calculateStreams(song);
+        }
+        counterEl.textContent = total.toLocaleString();
+      }
 
-      // toggle existing link input
-      document.querySelectorAll('input[name="live"]').forEach(r=>{
-        r.addEventListener('change', ()=>{
-          document.getElementById('existingLinkWrap').style.display = (r.value==='yes' && r.checked) ? 'block' : 'none';
+      // Radio toggle
+      const radios = Array.from(document.querySelectorAll('input[name="live"]'));
+      const existingWrap = document.getElementById('existingLinkWrap');
+      radios.forEach(radio => {
+        radio.addEventListener('change', ()=>{
+          existingWrap.style.display = (radio.value === 'yes' && radio.checked) ? 'block' : 'none';
+          document.getElementById('formMsg').textContent = '';
         });
       });
 
-      // handle form submit
+      // Submit behavior
       const btn = document.getElementById('submitBtn');
       const msg = document.getElementById('formMsg');
+      function resetToSubmit(){ btn.disabled = false; btn.textContent = 'Submit'; }
+
       btn.addEventListener('click', ()=>{
-        msg.textContent=''; btn.disabled=true; btn.textContent='Processing...';
-        const t = 1500 + Math.random()*1500;
+        msg.textContent = '';
+        btn.disabled = true;
+        btn.textContent = 'Processing..';
+        const wait = 1500 + Math.floor(Math.random() * 1500);
         setTimeout(()=>{
           const artistName = document.getElementById('artistName').value.trim();
           const cover = document.getElementById('coverUrl').value.trim();
-          const live = document.querySelector('input[name="live"]:checked').value;
+          const liveVal = document.querySelector('input[name="live"]:checked')?.value || 'no';
           const existing = document.getElementById('existingLink').value.trim();
-
-          const valid = artistName && cover && (live==='no' || (live==='yes' && existing));
+          const valid = artistName !== '' && cover !== '' && (liveVal !== 'yes' || (liveVal === 'yes' && existing !== ''));
           if(!valid){
-            btn.disabled=false; btn.textContent='Submit';
-            msg.style.color='red'; msg.textContent="We Couldn't Verify This Request, Please Try Again";
+            resetToSubmit();
+            msg.style.color = 'red';
+            msg.textContent = "We Couldn't Verify This Request, Please Try Again";
           } else {
-            btn.textContent='Submit';
-            btn.disabled=false;
-            msg.style.color='#ff1d64'; msg.textContent="Success! We've Got Your Request!";
+            btn.textContent = 'Success!';
+            btn.disabled = true;
+            msg.style.color = '#ff1d64';
+            msg.textContent = "Success! We've Got Your Request!";
           }
-        }, t);
+        }, wait);
       });
     });
   </script>
