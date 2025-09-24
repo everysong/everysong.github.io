@@ -93,6 +93,14 @@ function setupSearch(inputId, resultsId) {
   });
 }
 
+
+  // total streams on site (sum of all songs)
+  function getTotalStreams(){
+    const all = window.songs || [];
+    let t=0; all.forEach(s=> t += calculateStreams(s));
+    return t;
+  }
+
 // Auto-detect which page we’re on
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("newSongs")) {
