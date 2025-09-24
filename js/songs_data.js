@@ -1,22 +1,26 @@
-// /js/songs_data.js
 const songs = [
   {
-    id: 1,
+    id: "SNG001",
     title: "First Song",
-    artist: "Sample Artist",
-    artistID: 101,
-    cover: "/cdn/covers/song1.png",
-    uploadDate: 1730000000, // unix timestamp in seconds
-    streamMultiplyer: 0.5
+    artistId: "ART001",
+    cover: "/cdn/songs/first.png",
+    created: 1714000000,
+    baseStreams: 5000
   },
   {
-    id: 2,
-    title: "Second Song",
-    artist: "Another Artist",
-    artistID: 102,
-    cover: "/cdn/covers/song2.png",
-    uploadDate: 1731000000,
-    streamMultiplyer: 1.2
+    id: "SNG002",
+    title: "Second Track",
+    artistId: "ART002",
+    cover: "/cdn/songs/second.png",
+    created: 1714050000,
+    baseStreams: 3000
+  },
+  {
+    id: "SNG003",
+    title: "Third Hit",
+    artistId: "ART003",
+    cover: "/cdn/songs/third.png",
+    created: 1714100000,
+    baseStreams: 8000
   }
-  // ... add more
 ];
