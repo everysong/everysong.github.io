@@ -6,7 +6,7 @@ const songs = [
     cover: "/cdn/songs/first.png",
     created: 1714000000, // upload UNIX
     baseStreams: 5000,
-    streamMultiplier: 0.02 // streams per second
+    streamMultiplier: 7 // streams per second
   },
   {
     id: "SNG002",
