@@ -239,111 +239,72 @@
   <script src="/js/songs_data.js"></script>
   <script src="/js/backend.js"></script>
   <script>
-    // safe helpers for different data shapes
-    function getSongsArray() {
-      return window.songs || window.songs || [];
-    }
-    function num(v){ return Number(v) || 0; }
-    function formatNumber(n){
-      // digit-by-digit comma insertion (robust)
-      n = Math.floor(Math.max(0, Number(n) || 0));
-      const s = String(n);
-      let out = '';
-      let cnt = 0;
-      for (let i = s.length - 1; i >= 0; i--) {
-        out = s[i] + out; cnt++;
-        if (cnt % 3 === 0 && i !== 0) out = ',' + out;
-      }
-      return out;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  // Footer links -> alerts
+  document.getElementById('supportLink').addEventListener('click', e => {
+    e.preventDefault();
+    alert('Please Contact support@everysong.github.io');
+  });
+  document.getElementById('removeLink').addEventListener('click', e => {
+    e.preventDefault();
+    alert('Please Contact support@everysong.github.io');
+  });
 
-    // Determine upload timestamp (seconds) and multiplier field (robust to different key names)
-    function getUploadUnix(song){
-      return num(song.uploadDate) || num(song.created) || num(song.createdAt) || num(song.uploaded) || num(song.uploadedAt) || 0;
-    }
-    function getMultiplier(song){
-      return num(song.streamMultiplier) || num(song.streamMultiplyer) || num(song.streamMultiply) || num(song.multiplier) || 0;
-    }
+  // ----- TOTAL STREAMS (LOCAL) -----
+  function updateTotalStreams() {
+    const total = computeTotalStreamsLocal(); // use your local function
+    document.getElementById('totalCount').textContent = formatNumber(total);
+  }
+  updateTotalStreams();
+  setInterval(updateTotalStreams, 1000); // optional: live update every second
 
-    function computeStreamsForSong(song){
-      const upload = getUploadUnix(song);
-      const mult = getMultiplier(song);
-      if (!upload || !mult) return 0;
-      const now = Math.floor(Date.now() / 1000);
-      const diff = Math.max(0, now - upload);
-      return Math.floor(diff * mult);
-    }
-
-    function computeTotalStreamsLocal(){
-      const arr = getSongsArray();
-      let total = 0;
-      for (let i=0;i<arr.length;i++){ total += computeStreamsForSong(arr[i]); }
-      return total;
-    }
-
-    document.addEventListener('DOMContentLoaded', ()=> {
-      // footer links -> alerts
-      document.getElementById('supportLink').addEventListener('click', (e)=>{ e.preventDefault(); alert('Please Contact support@everysong.github.io'); });
-      document.getElementById('removeLink').addEventListener('click', (e)=>{ e.preventDefault(); alert('Please Contact support@everysong.github.io'); });
-
-      // Set total streams: prefer backend.getTotalStreams() if available, otherwise compute locally
-      let total = 0;
-        total = computeTotalStreamsLocal();
-      return
-      }
-      document.getElementById('totalCount').textContent = formatNumber(total);
-
-      // radio toggle behavior (clear msg on change)
-      const radios = Array.from(document.querySelectorAll('input[name="live"]'));
-      const existingWrap = document.getElementById('existingLinkWrap');
-      radios.forEach(r=>{
-        r.addEventListener('change', ()=>{
-          existingWrap.style.display = (r.value === 'yes' && r.checked) ? 'block' : 'none';
-          // clear previous messages when changing option
-          document.getElementById('formMsg').textContent = '';
-        });
-      });
-
-      // submit behavior (per spec)
-      const btn = document.getElementById('submitBtn');
-      const msg = document.getElementById('formMsg');
-      function resetToSubmit(){
-        btn.disabled = false;
-        btn.textContent = 'Submit';
-      }
-
-      btn.addEventListener('click', ()=>{
-        // clear previous text immediately when user clicks again
-        msg.textContent = '';
-        // disable + show processing
-        btn.disabled = true;
-        btn.textContent = 'Processing..';
-
-        const wait = 1500 + Math.floor(Math.random() * 1500); // 1500 - 3000ms
-        setTimeout(()=>{
-          const artistName = document.getElementById('artistName').value.trim();
-          const cover = document.getElementById('coverUrl').value.trim();
-          const liveVal = document.querySelector('input[name="live"]:checked') ? document.querySelector('input[name="live"]:checked').value : 'no';
-          const existing = document.getElementById('existingLink').value.trim();
-
-          const valid = artistName !== '' && cover !== '' && (liveVal !== 'yes' || (liveVal === 'yes' && existing !== ''));
-
-          if (!valid) {
-            // failure: re-enable and show red message
-            resetToSubmit();
-            msg.style.color = 'red';
-            msg.textContent = "We Couldn't Verify This Request, Please Try Again";
-          } else {
-            // success: stay disabled and show success
-            btn.textContent = 'Success!';
-            btn.disabled = true;
-            msg.style.color = '#ff1d64';
-            msg.textContent = "Success! We've Got Your Request!";
-            // (no actual upload - you add entries manually as requested)
-          }
-        }, wait);
-      });
+  // ----- RADIO TOGGLE FOR "ALREADY LIVE" -----
+  const radios = Array.from(document.querySelectorAll('input[name="live"]'));
+  const existingWrap = document.getElementById('existingLinkWrap');
+  radios.forEach(r => {
+    r.addEventListener('change', () => {
+      existingWrap.style.display = (r.value === 'yes' && r.checked) ? 'block' : 'none';
+      document.getElementById('formMsg').textContent = ''; // clear previous messages
     });
-  </script>
+  });
+
+  // ----- FORM SUBMIT -----
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+
+  function resetToSubmit() {
+    btn.disabled = false;
+    btn.textContent = 'Submit';
+  }
+
+  btn.addEventListener('click', () => {
+    msg.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Processing..';
+
+    const wait = 1500 + Math.floor(Math.random() * 1500);
+    setTimeout(() => {
+      const artistName = document.getElementById('artistName').value.trim();
+      const cover = document.getElementById('coverUrl').value.trim();
+      const liveVal = document.querySelector('input[name="live"]:checked')?.value || 'no';
+      const existing = document.getElementById('existingLink').value.trim();
+
+      const valid = artistName !== '' && cover !== '' && (liveVal !== 'yes' || (liveVal === 'yes' && existing !== ''));
+
+      if (!valid) {
+        resetToSubmit();
+        msg.style.color = 'red';
+        msg.textContent = "We Couldn't Verify This Request, Please Try Again";
+      } else {
+        btn.textContent = 'Success!';
+        btn.disabled = true;
+        msg.style.color = '#ff1d64';
+        msg.textContent = "Success! We've Got Your Request!";
+      }
+    }, wait);
+  });
+});
+</script>
+
 </body>
 </html>
