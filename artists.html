@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Everysong — Artists</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/cdn/icon.png" />
+  <style>
+    /* Reuse very similar CSS to index (kept minimal differences) */
+    :root{--bg:#0f0f0f;--panel:#0b0b0b;--accent:#ff1d64;--white:#fff;--muted:#bdbdbd;--card:#111}
+    body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+    .app{display:flex}
+    .sidenav{width:92px;padding:22px;display:flex;flex-direction:column;align-items:center}
+    .sidenav .nav-button{display:block;margin:12px 0;text-align:center}
+    .main{flex:1;padding:36px}
+    .topbar{display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:56px}
+    .panel{background:var(--panel);padding:28px;border-radius:16px;margin-top:18px}
+    h1{margin:0 0 18px 0;font-size:44px}
+    .artists-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .artist-card{background:var(--card);padding:18px;border-radius:16px;text-align:center;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .artist-card img{width:92px;height:92px;border-radius:50%;object-fit:cover;margin-bottom:12px}
+    .artist-card a{color:var(--white);text-decoration:none;font-size:18px}
+    .bottombar{position:fixed;left:0;right:0;bottom:0;background:#151515;padding:18px 24px;display:flex;justify-content:center;gap:56px;align-items:center}
+    .bottomlink{cursor:pointer;text-decoration:underline;color:var(--white)}
+    @media(max-width:900px){.artists-grid{grid-template-columns:repeat(2,1fr)} .sidenav{display:none}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidenav">
+      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
+      <a class="nav-button" href="/songs"><img src="/cdn/songs.svg" width="40"/><div style="font-size:12px">Songs</div></a>
+      <a class="nav-button" href="/artists"><img src="/cdn/artists.svg" width="40"/><div style="font-size:12px">Artists</div></a>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="brand"><img src="/cdn/icon.png"/><h2>Everysong</h2></div>
+        <a class="cta" href="/distribute" style="background:var(--accent);padding:10px 18px;border-radius:20px;text-decoration:none;color:white">Submit Your Song</a>
+      </div>
+
+      <div class="panel">
+        <h1>Recommended Artists</h1>
+        <div id="artistsGrid" class="artists-grid"></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="bottombar">
+    <a class="bottomlink" href="#" id="removeLink">Song Removal</a>
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
+      <div>© 2025 Everysong</div>
+    </div>
+    <a class="bottomlink" href="#" id="supportLink">Support</a>
+    <a class="bottomlink" href="/distribute">Distrobution</a>
+  </div>
+
+  <script src="/js/artists_data.js"></script>
+  <script src="/js/songs_data.js"></script>
+  <script src="/js/backend.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('supportLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
+      document.getElementById('removeLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
+
+      const container = document.getElementById('artistsGrid');
+      const list = backend.getRandomArtists(8);
+      list.forEach(a=>{
+        const card = document.createElement('div');
+        card.className='artist-card';
+        card.innerHTML = `
+          <img src="${a.pfp || '/cdn/icon.png'}" alt="${a.name}" />
+          <a href="/artist.html?ID=${encodeURIComponent(a.id)}">${a.name}</a>
+        `;
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>

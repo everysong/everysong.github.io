@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Everysong — Artist</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/cdn/icon.png" />
+  <style>
+    :root{--bg:#0f0f0f;--panel:#0b0b0b;--accent:#ff1d64;--white:#fff;--muted:#bdbdbd;--card:#111}
+    body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+    .app{display:flex}
+    .sidenav{width:92px;padding:22px;display:flex;flex-direction:column;align-items:center}
+    .main{flex:1;padding:36px}
+    .topbar{display:flex;justify-content:space-between;align-items:center}
+    .panel{background:var(--panel);padding:28px;border-radius:16px;margin-top:18px}
+    .artist-header{display:flex;gap:26px;align-items:center}
+    .pfp{width:128px;height:128px;border-radius:24px;background:var(--accent)}
+    .big{font-size:40px;margin:0}
+    .sub{color:var(--muted)}
+    .cards-row{display:flex;gap:18px;margin-top:18px;flex-wrap:wrap}
+    .song-card{background:var(--card);padding:14px;border-radius:14px;display:flex;gap:14px;align-items:center;min-width:300px}
+    @media(max-width:900px){.sidenav{display:none}.artist-header{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidenav">
+      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
+      <a class="nav-button" href="/songs"><img src="/cdn/songs.svg" width="40"/></a>
+      <a class="nav-button" href="/artists"><img src="/cdn/artists.svg" width="40"/></a>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div style="display:flex;align-items:center;gap:12px"><img src="/cdn/icon.png" width="44"/><h2>Everysong</h2></div>
+        <a class="cta" href="/distribute" style="background:var(--accent);padding:10px 18px;border-radius:20px;text-decoration:none;color:white">Submit Your Song</a>
+      </div>
+
+      <div class="panel">
+        <div id="artistArea"></div>
+      </div>
+    </main>
+  </div>
+
+  <div style="position:fixed;left:0;right:0;bottom:0;background:#151515;padding:18px 24px;display:flex;justify-content:center;gap:56px;align-items:center">
+    <a class="bottomlink" href="#" id="removeLink">Song Removal</a>
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
+      <div>© 2025 Everysong</div>
+    </div>
+    <a class="bottomlink" href="#" id="supportLink">Support</a>
+    <a class="bottomlink" href="/distribute">Distrobution</a>
+  </div>
+
+  <script src="/js/artists_data.js"></script>
+  <script src="/js/songs_data.js"></script>
+  <script src="/js/backend.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('supportLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
+      document.getElementById('removeLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
+
+      const params = new URLSearchParams(location.search);
+      const id = params.get('ID');
+      const area = document.getElementById('artistArea');
+
+      if(!id){
+        area.innerHTML = '<h2>Artist ID missing</h2>';
+        return;
+      }
+
+      const artist = backend.getArtistByID(id);
+      if(!artist){ area.innerHTML = '<h2>Artist not found</h2>'; return; }
+
+      // show header
+      const listeners = backend.getArtistListeners(artist.id);
+      const header = document.createElement('div');
+      header.innerHTML = `
+        <div class="artist-header">
+          <div class="pfp" style="background-image:url('${artist.pfp || '/cdn/icon.png'}');background-size:cover;"></div>
+          <div>
+            <h2 class="big">${artist.name}</h2>
+            <div class="sub">${backend.formatNumber(listeners)} Listeners</div>
+          </div>
+        </div>
+      `;
+      area.appendChild(header);
+
+      // songs by artist
+      const songs = backend.getSongsByArtist(artist.id);
+      const row = document.createElement('div'); row.className='cards-row';
+      songs.forEach(s => row.appendChild(backend.songCardElement(s)));
+      area.appendChild(row);
+    });
+  </script>
+</body>
+</html>
