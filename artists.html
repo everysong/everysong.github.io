@@ -1,82 +1,206 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Everysong — Artists</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="icon" href="/cdn/icon.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Everysong - Artists</title>
+  <link rel="icon" href="/cdn/icon.png">
   <style>
-    /* Reuse very similar CSS to index (kept minimal differences) */
-    :root{--bg:#0f0f0f;--panel:#0b0b0b;--accent:#ff1d64;--white:#fff;--muted:#bdbdbd;--card:#111}
-    body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
-    .app{display:flex}
-    .sidenav{width:92px;padding:22px;display:flex;flex-direction:column;align-items:center}
-    .sidenav .nav-button{display:block;margin:12px 0;text-align:center}
-    .main{flex:1;padding:36px}
-    .topbar{display:flex;justify-content:space-between;align-items:center}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:56px}
-    .panel{background:var(--panel);padding:28px;border-radius:16px;margin-top:18px}
-    h1{margin:0 0 18px 0;font-size:44px}
-    .artists-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .artist-card{background:var(--card);padding:18px;border-radius:16px;text-align:center;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .artist-card img{width:92px;height:92px;border-radius:50%;object-fit:cover;margin-bottom:12px}
-    .artist-card a{color:var(--white);text-decoration:none;font-size:18px}
-    .bottombar{position:fixed;left:0;right:0;bottom:0;background:#151515;padding:18px 24px;display:flex;justify-content:center;gap:56px;align-items:center}
-    .bottomlink{cursor:pointer;text-decoration:underline;color:var(--white)}
-    @media(max-width:900px){.artists-grid{grid-template-columns:repeat(2,1fr)} .sidenav{display:none}}
+    @font-face {
+      font-family: 'EverysongFont';
+      src: url('/cdn/font.ttf') format('truetype');
+    }
+    * {
+      font-family: 'EverysongFont', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: white;
+    }
+    body {
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+      margin-left: 100px;
+      padding: 100px 20px 60px;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #000;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .top-nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .top-nav-left img {
+      width: 35px;
+      margin-right: 10px;
+    }
+    .top-nav-left span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .top-nav button {
+      background: #ff1d64;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .top-nav button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Side Nav */
+    .side-nav {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      width: 80px;
+    }
+    .side-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      font-size: 14px;
+      transition: color 0.3s, transform 0.2s;
+    }
+    .side-nav a img {
+      width: 30px;
+      margin-bottom: 8px;
+    }
+    .side-nav a:hover {
+      color: #ff1d64;
+      transform: scale(1.05);
+    }
+
+    /* Artist Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #000;
+      border-radius: 16px;
+      padding: 15px;
+      text-align: center;
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .listeners {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .listeners img {
+      width: 14px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      margin-top: auto;
+    }
+    footer a {
+      margin: 0 15px;
+      color: #fff;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: #ff1d64;
+    }
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidenav">
-      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
-      <a class="nav-button" href="/songs"><img src="/cdn/songs.svg" width="40"/><div style="font-size:12px">Songs</div></a>
-      <a class="nav-button" href="/artists"><img src="/cdn/artists.svg" width="40"/><div style="font-size:12px">Artists</div></a>
-    </aside>
-
-    <main class="main">
-      <div class="topbar">
-        <div class="brand"><img src="/cdn/icon.png"/><h2>Everysong</h2></div>
-        <a class="cta" href="/distribute" style="background:var(--accent);padding:10px 18px;border-radius:20px;text-decoration:none;color:white">Submit Your Song</a>
-      </div>
-
-      <div class="panel">
-        <h1>Recommended Artists</h1>
-        <div id="artistsGrid" class="artists-grid"></div>
-      </div>
-    </main>
-  </div>
-
-  <div class="bottombar">
-    <a class="bottomlink" href="#" id="removeLink">Song Removal</a>
-    <div style="display:flex;align-items:center;gap:12px">
-      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
-      <div>© 2025 Everysong</div>
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <div class="top-nav-left">
+      <img src="/cdn/icon.png" alt="Logo"><span>Everysong</span>
     </div>
-    <a class="bottomlink" href="#" id="supportLink">Support</a>
-    <a class="bottomlink" href="/distribute">Distrobution</a>
+    <button onclick="window.location.href='/distribute'">Submit Your Song</button>
   </div>
 
-  <script src="/js/artists_data.js"></script>
+  <!-- Side Nav -->
+  <div class="side-nav">
+    <a href="/songs"><img src="/cdn/songs.svg" alt=""><span>Songs</span></a>
+    <a href="/artists"><img src="/cdn/artists.svg" alt=""><span>Artists</span></a>
+  </div>
+
+  <!-- Main -->
+  <main>
+    <h1>Artists</h1>
+    <div class="cards" id="artistCards"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <img src="/cdn/icon.png" width="20">
+    <span>© 2025 Everysong</span><br>
+    <a href="#" onclick="alert('Please Contact support@everysong.github.io')">Song Removal</a>
+    <a href="#" onclick="alert('Please Contact support@everysong.github.io')">Support</a>
+    <a href="/distribute">Distribution</a>
+  </footer>
+
   <script src="/js/songs_data.js"></script>
+  <script src="/js/artists_data.js"></script>
   <script src="/js/backend.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.getElementById('supportLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
-      document.getElementById('removeLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
+    // Load 8 random artists
+    const artistCards = document.getElementById("artistCards");
+    const shuffled = artists.sort(() => 0.5 - Math.random()).slice(0, 8);
 
-      const container = document.getElementById('artistsGrid');
-      const list = backend.getRandomArtists(8);
-      list.forEach(a=>{
-        const card = document.createElement('div');
-        card.className='artist-card';
-        card.innerHTML = `
-          <img src="${a.pfp || '/cdn/icon.png'}" alt="${a.name}" />
-          <a href="/artist.html?ID=${encodeURIComponent(a.id)}">${a.name}</a>
-        `;
-        container.appendChild(card);
-      });
+    shuffled.forEach(artist => {
+      const artistSongs = songs.filter(s => s.artistId === artist.id);
+      let totalStreams = 0;
+      artistSongs.forEach(song => totalStreams += calculateStreams(song));
+      const listeners = Math.floor(totalStreams * 0.25);
+
+      artistCards.innerHTML += `
+        <a href="/artist.html?id=${artist.id}">
+          <div class="card">
+            <img src="${artist.image}" alt="${artist.name}">
+            <h3>${artist.name}</h3>
+            <div class="listeners"><img src="/cdn/icon.png">${listeners.toLocaleString()}</div>
+          </div>
+        </a>`;
     });
   </script>
 </body>
