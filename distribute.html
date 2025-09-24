@@ -1,98 +1,247 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>Everysong — Distribute</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="/cdn/icon.png" />
   <style>
-    :root{--bg:#0f0f0f;--panel:#0b0b0b;--accent:#ff1d64;--white:#fff;--muted:#bdbdbd;--card:#111}
-    body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
-    .app{display:flex}
-    .sidenav{width:92px;padding:22px;display:flex;flex-direction:column;align-items:center}
-    .main{flex:1;padding:36px}
-    .panel{background:var(--panel);padding:28px;border-radius:16px;margin-top:18px}
-    h1{margin:0 0 8px 0;font-size:44px}
-    .muted{color:var(--muted)}
-    .bigaccent{color:var(--accent);font-weight:700}
-    .form{background:var(--card);padding:18px;border-radius:12px;max-width:720px;margin-top:18px}
-    .frow{display:flex;gap:12px;margin-bottom:12px;align-items:center}
-    label{display:block;font-size:14px;margin-bottom:6px}
-    input[type="text"], input[type="url"]{padding:10px;border-radius:8px;border:1px solid #222;background:transparent;color:var(--white);width:100%}
-    .radio{display:flex;gap:12px;align-items:center}
-    .note{font-size:13px;color:var(--muted);margin-top:8px}
-    .btn{background:var(--accent);padding:12px 18px;border-radius:10px;border:none;color:white;cursor:pointer}
-    .btn:disabled{opacity:.5;cursor:default}
-    .msg{margin-top:10px}
-    @media(max-width:900px){.sidenav{display:none}}
+    @font-face {
+      font-family: 'EverysongFont';
+      src: url('/cdn/font.ttf') format('truetype');
+    }
+    * {
+      font-family: 'EverysongFont', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: white;
+    }
+    body {
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+      margin-left: 100px;
+      padding: 100px 20px 60px;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #000;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .top-nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .top-nav-left img {
+      width: 35px;
+      margin-right: 10px;
+    }
+    .top-nav-left span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .top-nav button {
+      background: #ff1d64;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .top-nav button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Side Nav */
+    .side-nav {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      width: 80px;
+    }
+    .side-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px;
+      transition: color 0.3s, transform 0.2s;
+    }
+    .side-nav a img {
+      width: 30px;
+      margin-bottom: 8px;
+    }
+    .side-nav a:hover {
+      color: #ff1d64;
+      transform: scale(1.05);
+    }
+
+    /* Form + Panel */
+    .panel {
+      background: #000;
+      padding: 28px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      max-width: 720px;
+    }
+    .panel h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .muted {
+      color: #bdbdbd;
+      margin-bottom: 16px;
+    }
+    .bigaccent {
+      color: #ff1d64;
+      font-weight: 700;
+    }
+    .form {
+      background: #111;
+      padding: 18px;
+      border-radius: 12px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="url"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #222;
+      background: transparent;
+      color: white;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .radio {
+      display: flex;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .note {
+      font-size: 13px;
+      color: #bdbdbd;
+      margin-top: 6px;
+    }
+    .btn {
+      background: #ff1d64;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    .btn:disabled {
+      opacity: .5;
+      cursor: default;
+    }
+    .msg {
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      margin-top: auto;
+    }
+    footer a {
+      margin: 0 15px;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: #ff1d64;
+    }
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidenav">
-      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
-      <a class="nav-button" href="/songs"><img src="/cdn/songs.svg" width="40"/></a>
-      <a class="nav-button" href="/artists"><img src="/cdn/artists.svg" width="40"/></a>
-    </aside>
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <div class="top-nav-left">
+      <img src="/cdn/icon.png" alt="Logo"><span>Everysong</span>
+    </div>
+    <button onclick="window.location.href='/distribute'">Submit Your Song</button>
+  </div>
 
-    <main class="main">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="display:flex;align-items:center;gap:12px"><img src="/cdn/icon.png" width="44"/><h2>Everysong</h2></div>
-        <a class="cta" style="background:var(--accent);padding:8px 14px;border-radius:18px;color:white;text-decoration:none" href="/distribute">Distribute</a>
-      </div>
+  <!-- Side Nav -->
+  <div class="side-nav">
+    <a href="/songs"><img src="/cdn/songs.svg" alt=""><span>Songs</span></a>
+    <a href="/artists"><img src="/cdn/artists.svg" alt=""><span>Artists</span></a>
+  </div>
 
-      <div class="panel">
-        <h1>Distribute To Everysong ®</h1>
-        <p class="muted">Users have streamed <span id="totalCount" class="bigaccent">0</span> Songs On Everysong ®</p>
+  <!-- Main -->
+  <main>
+    <div class="panel">
+      <h1>Distribute To Everysong ®</h1>
+      <p class="muted">Users have streamed <span id="totalCount" class="bigaccent">0</span> Songs On Everysong ®</p>
 
-        <div class="form" id="submitForm">
-          <h3 style="margin:0 0 12px 0">Submit Your Song</h3>
+      <div class="form" id="submitForm">
+        <h3 style="margin:0 0 12px 0">Submit Your Song</h3>
 
-          <div>
-            <label>Artist Name</label>
-            <input id="artistName" type="text" placeholder="Artist Name" />
-          </div>
+        <label>Artist Name</label>
+        <input id="artistName" type="text" placeholder="Artist Name" />
 
-          <div style="margin-top:10px">
-            <label>Artist Already Live On Everysong ®?</label>
-            <div class="radio">
-              <label><input type="radio" name="live" value="yes" /> Yes</label>
-              <label><input type="radio" name="live" value="no" checked /> No</label>
-            </div>
-            <div id="existingLinkWrap" style="margin-top:8px;display:none">
-              <input id="existingLink" type="url" placeholder="https://everysong/..."/>
-            </div>
-          </div>
+        <label>Artist Already Live On Everysong ®?</label>
+        <div class="radio">
+          <label><input type="radio" name="live" value="yes" /> Yes</label>
+          <label><input type="radio" name="live" value="no" checked /> No</label>
+        </div>
+        <div id="existingLinkWrap" style="display:none">
+          <input id="existingLink" type="url" placeholder="https://everysong/..."/>
+        </div>
 
-          <div style="margin-top:12px">
-            <label>Album Cover (URL)</label>
-            <input id="coverUrl" type="url" placeholder="https://..." />
-            <div class="note">Only Square 1000x1000+ Images Will Be Accepted</div>
-          </div>
+        <label>Album Cover (URL)</label>
+        <input id="coverUrl" type="url" placeholder="https://..." />
+        <div class="note">Only Square 1000x1000+ Images Will Be Accepted</div>
 
-          <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
-            <button id="submitBtn" class="btn">Submit</button>
-            <div id="formMsg" class="msg"></div>
-          </div>
+        <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
+          <button id="submitBtn" class="btn">Submit</button>
+          <div id="formMsg" class="msg"></div>
         </div>
       </div>
-    </main>
-  </div>
-
-  <div style="position:fixed;left:0;right:0;bottom:0;background:#151515;padding:18px 24px;display:flex;justify-content:center;gap:56px;align-items:center">
-    <a class="bottomlink" href="#" id="removeLink">Song Removal</a>
-    <div style="display:flex;align-items:center;gap:12px">
-      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
-      <div>© 2025 Everysong</div>
     </div>
-    <a class="bottomlink" href="#" id="supportLink">Support</a>
-    <a class="bottomlink" href="/distribute">Distrobution</a>
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <img src="/cdn/icon.png" width="20">
+    <span>© 2025 Everysong</span><br>
+    <a href="#" id="removeLink">Song Removal</a>
+    <a href="#" id="supportLink">Support</a>
+    <a href="/distribute">Distribution</a>
+  </footer>
 
   <script src="/js/artists_data.js"></script>
   <script src="/js/songs_data.js"></script>
   <script src="/js/backend.js"></script>
-
   <script>
     document.addEventListener('DOMContentLoaded', ()=>{
       document.getElementById('supportLink').addEventListener('click',(e)=>{e.preventDefault();alert('Please Contact support@everysong.github.io')});
@@ -115,7 +264,6 @@
       const msg = document.getElementById('formMsg');
       btn.addEventListener('click', ()=>{
         msg.textContent=''; btn.disabled=true; btn.textContent='Processing..';
-        // simulate time 1.5 - 3s
         const t = 1500 + Math.random()*1500;
         setTimeout(()=>{
           const artistName = document.getElementById('artistName').value.trim();
@@ -123,15 +271,13 @@
           const live = document.querySelector('input[name="live"]:checked').value;
           const existing = document.getElementById('existingLink').value.trim();
 
-          // very simple validation: artist name + cover provided, if live=yes then existing link required
           const valid = artistName && cover && (live==='no' || (live==='yes' && existing));
           if(!valid){
             btn.disabled=false; btn.textContent='Submit';
             msg.style.color='red'; msg.textContent="We Couldn't Verify This Request, Please Try Again";
           } else {
-            btn.textContent='Success!'; // stay disabled
-            msg.style.color='var(--accent)'; msg.textContent="Success! We've Got Your Request!";
-            // NOTE: not actually uploading — you said you add songs manually
+            btn.textContent='Success!';
+            msg.style.color='#ff1d64'; msg.textContent="Success! We've Got Your Request!";
           }
         }, t);
       });
