@@ -1,195 +1,213 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Everysong — Home</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="icon" href="/cdn/icon.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Everysong</title>
+  <link rel="icon" href="/cdn/icon.png">
   <style>
-    /* ---------- Simple Variables ---------- */
-    :root{
-      --bg:#0f0f0f;
-      --panel:#0b0b0b;
-      --accent:#ff1d64;
-      --muted:#bdbdbd;
-      --white:#ffffff;
-      --card:#111111;
-      --rounded:18px;
-      --glass: rgba(255,255,255,0.02);
-      font-family: "Helvetica Neue", Arial, sans-serif;
+    @font-face {
+      font-family: 'EverysongFont';
+      src: url('/cdn/font.ttf') format('truetype');
+    }
+    * {
+      font-family: 'EverysongFont', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: white;
+    }
+    body {
+      background: #111;
+      color: #fff;
     }
 
-    /* ---------- Layout ---------- */
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--white)}
-    .app{display:flex;min-height:100vh;align-items:stretch}
-    /* side nav */
-    .sidenav{
-      width:92px;background:linear-gradient(180,#0c0c0c,#0a0a0a);
-      padding:22px 12px;box-sizing:border-box;
-      display:flex;flex-direction:column;align-items:center;gap:34px;
-      flex-shrink:0;
+    /* Top Nav */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #000;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
     }
-    .logo-top{display:flex;align-items:center;gap:14px}
-    .logo-top img{width:44px;height:44px;border-radius:50%}
-    .logo-top h1{font-size:34px;margin:0;font-weight:700;letter-spacing:-1px}
-    .nav-icon{display:flex;flex-direction:column;align-items:center;gap:12px}
-    .nav-button{cursor:pointer;text-align:center;color:var(--white);text-decoration:none;
-               user-select:none;display:block;padding:8px;border-radius:10px;transition:transform .15s,background .2s,color .2s}
-    .nav-button:hover{transform:scale(1.06);background:rgba(255,29,100,.08);color:var(--accent)}
-    .nav-button img{width:40px;height:40px;display:block;margin:0 auto}
-    .nav-label{font-size:14px;margin-top:4px;color:var(--white)}
-    .main{
-      flex:1;padding:32px 48px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:26px;
+    .top-nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .top-nav-left img {
+      width: 35px;
+      margin-right: 10px;
+    }
+    .top-nav-left span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .top-nav button {
+      background: #ff1d64;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .top-nav button:hover {
+      transform: scale(1.05);
     }
 
-    /* top nav */
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px}
-    .top-left{display:flex;align-items:center;gap:16px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:56px;height:56px}
-    .brand h2{margin:0;font-size:40px}
-    .cta{background:var(--accent);padding:14px 28px;border-radius:28px;color:white;font-weight:600;
-         cursor:pointer;transition:transform .15s;box-shadow:0 6px 18px rgba(255,29,100,.12)}
-    .cta:hover{transform:scale(1.04)}
-
-    /* content */
-    .panel{background:var(--panel);border-radius:16px;padding:26px}
-    h3{font-size:44px;margin:0}
-    .search-wrap{text-align:center;padding:28px 0}
-    .search-input{
-      width:80%;max-width:900px;padding:18px 22px;border-radius:36px;border:6px solid rgba(255,29,100,0.12);
-      background:rgba(255,255,255,0.02);color:var(--muted);font-size:20px;outline:none;box-sizing:border-box;
-      transition:transform .12s;
+    /* Side Nav */
+    .side-nav {
+      position: fixed;
+      top: 70px; /* just under top nav */
+      left: 0;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      width: 80px;
     }
-    .search-input:focus{color:var(--white);box-shadow:0 6px 18px rgba(0,0,0,.7)}
-
-    /* cards row */
-    .cards-row{display:flex;gap:28px;padding-top:18px;flex-wrap:wrap}
-    .song-card{
-      background:var(--card);border-radius:22px;padding:18px;display:flex;align-items:center;gap:18px;
-      min-width:320px;max-width:420px;box-shadow:0 6px 18px rgba(0,0,0,.6);
-      transition:transform .12s;
+    .side-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      font-size: 14px;
+      transition: color 0.3s, transform 0.2s;
     }
-    .song-card:hover{transform:scale(1.02)}
-    .cover{width:92px;height:92px;border-radius:18px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-    .song-info{flex:1}
-    .song-title{font-size:20px;margin:0}
-    .song-artist{font-size:14px;color:var(--muted);margin-top:6px;text-decoration:none}
-    .song-meta{display:flex;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:13px}
-    .logo-small{width:18px;height:18px;border-radius:50%;background:url('/cdn/icon.png') center/cover no-repeat;display:inline-block}
+    .side-nav a img {
+      width: 30px;
+      margin-bottom: 8px;
+    }
+    .side-nav a:hover {
+      color: #ff1d64;
+      transform: scale(1.05);
+    }
 
-    /* bottom nav */
-    .bottombar{position:fixed;left:0;right:0;bottom:0;background:#151515;padding:18px 24px;display:flex;justify-content:center;gap:56px;align-items:center}
-    .bottomlink{cursor:pointer;text-decoration:underline;color:var(--white);font-size:20px}
-    .bottomlink:hover{color:var(--accent);transform:scale(1.04)}
-    .bottomlink:visited{color:var(--white)}
+    /* Main Content */
+    main {
+      margin-left: 100px;
+      padding: 100px 20px 60px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .search-bar input {
+      width: 80%;
+      max-width: 600px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid #ff1d64;
+      background: #111;
+      color: #fff;
+      font-size: 14px;
+    }
 
-    /* responsive */
-    @media(max-width:900px){
-      .sidenav{display:none}
-      .search-input{width:94%}
-      .song-card{min-width:90%}
-      .brand h2{font-size:28px}
-      .topbar{flex-direction:column;align-items:flex-start;gap:10px}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #000;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+    }
+    .card .info {
+      flex: 1;
+    }
+    .card .info h3 {
+      font-size: 16px;
+    }
+    .card .info a {
+      color: #ff1d64;
+      font-size: 13px;
+    }
+    .streams {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .streams img {
+      width: 14px;
+    }
+
+    /* Bottom Nav */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      margin-top: 40px;
+    }
+    footer a {
+      margin: 0 15px;
+      color: #fff;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: #ff1d64;
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <!-- side nav -->
-    <aside class="sidenav" aria-hidden="false">
-      <a class="logo-top" href="/">
-        <img src="/cdn/icon.png" alt="logo"/>
-      </a>
-
-      <div style="flex:1"></div>
-
-      <nav class="nav-icon">
-        <a class="nav-button" href="/songs">
-          <img src="/cdn/songs.svg" alt="songs"/>
-          <div class="nav-label">Songs</div>
-        </a>
-        <a class="nav-button" href="/artists">
-          <img src="/cdn/artists.svg" alt="artists"/>
-          <div class="nav-label">Artists</div>
-        </a>
-      </nav>
-
-      <div style="flex:1"></div>
-    </aside>
-
-    <main class="main">
-      <div class="topbar">
-        <div class="top-left">
-          <div class="brand">
-            <img src="/cdn/icon.png" alt="Everysong"/>
-            <h2>Everysong</h2>
-          </div>
-        </div>
-        <div>
-          <a class="cta" href="/distribute">Submit Your Song</a>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h3 style="text-align:center;">Search For A Song</h3>
-        <div class="search-wrap">
-          <input id="searchBox" class="search-input" placeholder="Search by Song or Artist — e.g. Kendrick Lamar - Not Like Us" />
-        </div>
-
-        <h3 style="margin-top:8px;">New To Everysong ®</h3>
-        <div id="featuredRow" class="cards-row"></div>
-
-        <div id="searchResults" style="margin-top:22px"></div>
-      </div>
-    </main>
-  </div>
-
-  <div class="bottombar">
-    <a class="bottomlink" href="#" id="removeLink">Song Removal</a>
-    <div style="display:flex;align-items:center;gap:12px">
-      <img src="/cdn/icon.png" style="width:44px;height:44px;border-radius:50%"/>
-      <div>© 2025 Everysong</div>
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <div class="top-nav-left">
+      <img src="/cdn/icon.png" alt="Logo"><span>Everysong</span>
     </div>
-    <a class="bottomlink" href="#" id="supportLink">Support</a>
-    <a class="bottomlink" href="/distribute">Distrobution</a>
+    <button onclick="window.location.href='/distribute'">Submit Your Song</button>
   </div>
 
-  <!-- data + logic -->
-  <script src="/js/artists_data.js"></script>
+  <!-- Side Nav -->
+  <div class="side-nav">
+    <a href="/songs"><img src="/cdn/songs.svg" alt=""><span>Songs</span></a>
+    <a href="/artists"><img src="/cdn/artists.svg" alt=""><span>Artists</span></a>
+  </div>
+
+  <!-- Main -->
+  <main>
+    <h1>Search For A Song</h1>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search songs by name or artist...">
+    </div>
+
+    <h1>New To Everysong ®</h1>
+    <div class="cards" id="newSongs"></div>
+    <div class="cards" id="searchResults" style="margin-top:30px;"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <img src="/cdn/icon.png" width="20">
+    <span>© 2025 Everysong</span><br>
+    <a href="#" onclick="alert('Please Contact support@everysong.github.io')">Song Removal</a>
+    <a href="#" onclick="alert('Please Contact support@everysong.github.io')">Support</a>
+    <a href="/distribute">Distribution</a>
+  </footer>
+
   <script src="/js/songs_data.js"></script>
+  <script src="/js/artists_data.js"></script>
   <script src="/js/backend.js"></script>
-
-  <script>
-    /* wire the simple home page behavior after backend loaded */
-    document.addEventListener('DOMContentLoaded', ()=> {
-      // disable default link coloring/visited effect via JS-safe behavior (css already handles) + alerts
-      document.getElementById('supportLink').addEventListener('click', (e)=>{
-        e.preventDefault(); alert('Please Contact support@everysong.github.io');
-      });
-      document.getElementById('removeLink').addEventListener('click', (e)=>{
-        e.preventDefault(); alert('Please Contact support@everysong.github.io');
-      });
-
-      // featured latest 3
-      const featured = backend.getLatestSongs(3);
-      const featuredRow = document.getElementById('featuredRow');
-      featured.forEach(s => featuredRow.appendChild(backend.songCardElement(s)));
-
-      // search
-      const box = document.getElementById('searchBox');
-      const resultsWrap = document.getElementById('searchResults');
-      box.addEventListener('input', ()=>{
-        resultsWrap.innerHTML='';
-        const q = box.value.trim();
-        if(!q) return;
-        const hits = backend.searchSongs(q);
-        const wrap = document.createElement('div');
-        wrap.className='cards-row';
-        hits.forEach(s => wrap.appendChild(backend.songCardElement(s)));
-        resultsWrap.appendChild(wrap);
-      });
-    });
-  </script>
 </body>
 </html>
