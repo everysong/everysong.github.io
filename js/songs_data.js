@@ -3,7 +3,7 @@ const songs = [
     id: "EV0000001",
     title: "First Song",
     artistId: "100001",
-    cover: "/cdn/placeholder.png",
+    cover: "placeholder.png",
     created: 1714000000, // upload UNIX
     baseStreams: 5000,
     streamMultiplier: 7 // streams per second
