@@ -288,10 +288,8 @@
 
       // Set total streams: prefer backend.getTotalStreams() if available, otherwise compute locally
       let total = 0;
-      if (window.backend && typeof window.backend.getTotalStreams === 'function') {
-        try { total = Number(window.backend.getTotalStreams()) || 0; } catch(e){ total = computeTotalStreamsLocal(); }
-      } else {
         total = computeTotalStreamsLocal();
+      return
       }
       document.getElementById('totalCount').textContent = formatNumber(total);
 
