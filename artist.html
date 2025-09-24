@@ -238,7 +238,6 @@
       let totalStreams = 0;
       artistSongs.forEach(song => totalStreams += calculateStreams(song));
       const listeners = Math.floor(totalStreams * 0.25);
-      document.getElementById("artistListeners").textContent = listeners.toLocaleString();
 
       // Render songs
       const artistSongsContainer = document.getElementById("artistSongs");
