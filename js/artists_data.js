@@ -1,20 +1,20 @@
 const artists = [
   {
-    id: "ART001",
+    id: "100001",
     name: "Sample Artist",
-    image: "/cdn/artists/sample.png",
+    image: "/cdn/placeholder.png",
     created: 1714000000
   },
   {
-    id: "ART002",
+    id: "100002",
     name: "Another Artist",
-    image: "/cdn/artists/another.png",
+    image: "/cdn/placeholder.png",
     created: 1714100000
   },
   {
-    id: "ART003",
+    id: "100003",
     name: "Indie Star",
-    image: "/cdn/artists/indie.png",
+    image: "/cdn/placeholder.png",
     created: 1714200000
   }
 ];
