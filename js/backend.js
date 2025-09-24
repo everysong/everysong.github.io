@@ -1,63 +1,57 @@
-// Utility: add commas
-function formatNumber(num) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-// Calculate streams from timestamp + multiplier
+// Calculate streams based on baseStreams + some time factor
 function calculateStreams(song) {
-  let now = Math.floor(Date.now() / 1000);
-  let diff = now - song.uploadDate;
-  let streams = diff * song.streamMultiplyer;
-  return Math.max(0, Math.floor(streams));
+  const now = Math.floor(Date.now() / 1000);
+  const timeFactor = Math.floor((now - song.created) / 86400); // per day growth
+  return song.baseStreams + (timeFactor * 100); // 100 streams/day growth
 }
 
-// Render a song card
-function renderSongCard(song) {
-  let streams = formatNumber(calculateStreams(song));
-  return `
-    <div class="card">
-      <img src="${song.cover}" alt="Cover">
-      <div class="info">
-        <h3>${song.title}</h3>
-        <a href="/artist?ID=${song.artistID}">${song.artist}</a>
-        <div class="streams">
-          <img src="/cdn/icon.png" alt="icon">${streams}
-        </div>
-      </div>
-    </div>
-  `;
-}
+// Search function (works on both songs and artists)
+function setupSearch(inputId, resultsId) {
+  const input = document.getElementById(inputId);
+  const results = document.getElementById(resultsId);
 
-// Load newest 3 songs
-function loadNewestSongs() {
-  let sorted = songs.sort((a, b) => b.uploadDate - a.uploadDate);
-  let newest = sorted.slice(0, 3);
-  document.getElementById("newSongs").innerHTML = newest.map(renderSongCard).join("");
-}
+  if (!input || !results) return;
 
-// Search songs by title or artist
-function setupSearch() {
-  let input = document.getElementById("searchInput");
   input.addEventListener("input", () => {
-    let query = input.value.trim().toLowerCase();
-    let container = document.getElementById("searchResults");
+    const query = input.value.toLowerCase();
+    results.innerHTML = "";
 
-    if (!query) {
-      container.innerHTML = "";
-      return;
-    }
+    if (query.length < 2) return;
 
-    let results = songs.filter(s =>
-      s.title.toLowerCase().includes(query) ||
-      s.artist.toLowerCase().includes(query)
-    );
+    // Search songs
+    songs.forEach(song => {
+      if (song.title.toLowerCase().includes(query)) {
+        const artist = artists.find(a => a.id === song.artistId);
+        const streams = calculateStreams(song).toLocaleString();
+        results.innerHTML += `
+          <div class="card">
+            <img src="${song.cover}" alt="cover">
+            <div class="info">
+              <h3>${song.title}</h3>
+              <a href="/artist.html?id=${artist.id}">${artist.name}</a>
+              <div class="streams"><img src="/cdn/icon.png">${streams}</div>
+            </div>
+          </div>`;
+      }
+    });
 
-    container.innerHTML = results.map(renderSongCard).join("");
+    // Search artists
+    artists.forEach(artist => {
+      if (artist.name.toLowerCase().includes(query)) {
+        const artistSongs = songs.filter(s => s.artistId === artist.id);
+        let totalStreams = 0;
+        artistSongs.forEach(song => totalStreams += calculateStreams(song));
+        const listeners = Math.floor(totalStreams * 0.25);
+
+        results.innerHTML += `
+          <a href="/artist.html?id=${artist.id}">
+            <div class="card">
+              <img src="${artist.image}" alt="${artist.name}">
+              <h3>${artist.name}</h3>
+              <div class="listeners"><img src="/cdn/icon.png">${listeners.toLocaleString()}</div>
+            </div>
+          </a>`;
+      }
+    });
   });
 }
-
-// Init
-window.addEventListener("DOMContentLoaded", () => {
-  loadNewestSongs();
-  setupSearch();
-});
