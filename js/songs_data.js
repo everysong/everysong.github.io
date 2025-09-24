@@ -12,7 +12,7 @@ const songs = [
     id: "EV0000002",
     title: "Second Track",
     artistId: "100001",
-    cover: "/cdn/placeholder.png",
+    cover: "placeholder.png",
     created: 1714050000,
     baseStreams: 3000,
     streamMultiplier: 0.05
