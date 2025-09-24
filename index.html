@@ -21,6 +21,14 @@
     body {
       background: #111;
       color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+      margin-left: 100px;
+      padding: 100px 20px 60px;
     }
 
     /* Top Nav */
@@ -63,7 +71,7 @@
     /* Side Nav */
     .side-nav {
       position: fixed;
-      top: 70px; /* just under top nav */
+      top: 70px;
       left: 0;
       padding: 20px 10px;
       display: flex;
@@ -89,31 +97,7 @@
       transform: scale(1.05);
     }
 
-    /* Main Content */
-    main {
-      margin-left: 100px;
-      padding: 100px 20px 60px;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 40px;
-    }
-    .search-bar input {
-      width: 80%;
-      max-width: 600px;
-      padding: 12px;
-      border-radius: 12px;
-      border: 2px solid #ff1d64;
-      background: #111;
-      color: #fff;
-      font-size: 14px;
-    }
-
+    /* Cards */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -152,12 +136,12 @@
       width: 14px;
     }
 
-    /* Bottom Nav */
+    /* Footer */
     footer {
       text-align: center;
       padding: 20px;
       background: #000;
-      margin-top: 40px;
+      margin-top: auto;
     }
     footer a {
       margin: 0 15px;
