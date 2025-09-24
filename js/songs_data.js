@@ -11,16 +11,16 @@ const songs = [
   {
     id: "EV0000002",
     title: "Second Track",
-    artistId: "100001",
+    artistId: "100002",
     cover: "placeholder.png",
     created: 1714050000,
     baseStreams: 3000,
     streamMultiplier: 0.05
   },
   {
-    id: "EV0000001",
+    id: "EV0000003",
     title: "Third Hit",
-    artistId: "100001",
+    artistId: "100003",
     cover: "placeholder.png",
     created: 1714100000,
     baseStreams: 8000,
