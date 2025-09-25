@@ -4490,6 +4490,15 @@ const songs = [
     "baseStreams": 0,
     "streamMultiplier": 30
   },
+    {
+      "id": "EV0000501",
+      "title": "KRUSH.FNK",
+      "artistId": "100171",
+      "cover": "placeholder.png",
+      "created": 1758825112,
+      "baseStreams": 0,
+      "streamMultiplier": 52
+    },
   {
     "id": "EV0000500",
     "title": "Whisper Stars",
