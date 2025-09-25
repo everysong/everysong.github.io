@@ -1018,5 +1018,11 @@ const artists = [
     "name": "Noah Gonzalez",
     "image": "placeholder.png",
     "created": 1758571341
-  }
+  },
+  {
+    "id": "100171",
+    "name": "vein!",
+    "image": "placeholder.png",
+    "created": 1758825112
+  },
 ];
