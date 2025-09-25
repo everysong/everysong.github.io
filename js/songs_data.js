@@ -1,4 +1,13 @@
 const songs = [
+    {
+    "id": "EV0000502",
+    "title": "all the love in the world",
+    "artistId": "100160",
+    "cover": "placeholder.png",
+    "created": 1758826352,
+    "baseStreams": 0,
+    "streamMultiplier": 6
+  },
   {
     "id": "EV0000001",
     "title": "Sacred Night",
