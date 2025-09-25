@@ -35,10 +35,11 @@ function renderNewestSongs() {
   renderSongs("newSongs", sorted.slice(0, 6));
 }
 
-// Render all/random songs for songs.html
+// Render random 8 songs for songs.html
 function renderAllSongs() {
   const shuffled = [...songs].sort(() => 0.5 - Math.random());
-  renderSongs("allSongs", shuffled);
+  const limited = shuffled.slice(0, 8); // only take 8
+  renderSongs("allSongs", limited);
 }
 
 // Setup search
