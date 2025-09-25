@@ -38,7 +38,7 @@ function renderNewestSongs() {
 // Render random 8 songs for songs.html
 function renderAllSongs() {
   const shuffled = [...songs].sort(() => 0.5 - Math.random());
-  const limited = shuffled.slice(0, 8); // only take 8
+  const limited = shuffled.slice(0, 20); // only take 8
   renderSongs("allSongs", limited);
 }
 
