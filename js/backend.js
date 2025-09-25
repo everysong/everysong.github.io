@@ -32,7 +32,7 @@ function renderSongs(containerId, list) {
 // Render newest songs for index
 function renderNewestSongs() {
   const sorted = [...songs].sort((a, b) => b.created - a.created);
-  renderSongs("newSongs", sorted.slice(0, 6));
+  renderSongs("newSongs", sorted.slice(0, 5));
 }
 
 // Render random 8 songs for songs.html
