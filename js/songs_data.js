@@ -4516,5 +4516,25 @@ const songs = [
     "created": 1758640541,
     "baseStreams": 0,
     "streamMultiplier": 29
-  }
+  },
+        
+    {
+      "id": "EV0000501",
+      "title": "sadly no.",
+      "artistId": "100171",
+      "cover": "placeholder.png",
+      "created": 1758944941,
+      "baseStreams": 0,
+      "streamMultiplier": 32
+    },
+        
+    {
+      "id": "EV0000501",
+      "title": "FUNK BANJO!",
+      "artistId": "100172",
+      "cover": "placeholder.png",
+      "created": 1758944941,
+      "baseStreams": 0,
+      "streamMultiplier": 14
+    }
 ];
