@@ -1029,6 +1029,6 @@ const artists = [
     "id": "100172",
     "name": "$aint",
     "image": "placeholder.png",
-    "created": 1758944941
+    "created": 1758945340
   },
 ];
