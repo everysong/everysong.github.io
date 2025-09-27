@@ -1025,4 +1025,10 @@ const artists = [
     "image": "placeholder.png",
     "created": 1758825112
   },
+    {
+    "id": "100172",
+    "name": "$aint",
+    "image": "placeholder.png",
+    "created": 1758944941
+  },
 ];
